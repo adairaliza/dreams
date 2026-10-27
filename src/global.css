@@ -1,0 +1,68 @@
+@font-face {
+    font-family: Splendid;
+    src: url("/fonts/SplendidN.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: SplendidBold;
+    src: url("/fonts/SplendidB.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: SplendidThin;
+    src: url("/fonts/SplendidI.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: TypeWriter;
+    src: url("/fonts/typewcond_regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: TypeWriterDemi;
+    src: url("/fonts/typewcond_demi.woff2") format("woff2");
+}
+
+:root {
+    --font-base: SplendidThin, system-ui, serif;
+    --font-bold: Splendid, system-ui, serif;
+    /* --color-bg: #f5ebe7; */
+    --color-light: #E8E3D6;
+    --color-dark: #796b63;
+    --color-bg: var(--color-light);
+    --color-font: var(--color-dark);
+}
+
+body {
+    box-sizing: border-box;
+    font-family: var(--font-base);
+    background-color: var(--color-bg);
+    color: var(--color-font);
+}
+
+body,
+h1,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+
+p {
+    font-family: var(--font-bold);
+    font-size: 1.25rem;
+}
+
+button {
+    pointer-events: auto;
+    font-family: var(--font-base);
+    font-size: clamp(.75rem, 1vw, 1.25rem);
+    color: var(--color-font);
+    background: none;
+    border: none;
+    transition: opacity .5s ease, transform 1s ease;
+}
+
+button:hover {
+    cursor: pointer;
+}

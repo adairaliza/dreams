@@ -1,0 +1,73 @@
+---
+
+---
+
+<nav>
+    <section class="upper-nav">
+        <button light-mode-btn>☀</button>
+        <button about-btn>about</button>
+    </section>
+    <section class="lower-nav">
+        <button sort-btn>sort</button>
+        <button
+            onclick="alert('⋆｡˚ ☁︎ ˚｡⋆｡˚☽˚｡⋆ \n \n Thank you for being here <3 \nSend your latest dream to me at hello@aliza.space...\nI\'d love to know what\'s on your mind. \n \n⋆｡˚ ☁︎ ˚｡⋆｡˚☽˚｡⋆ ')"
+            >♥</button
+        >
+    </section>
+</nav>
+
+<style>
+    nav {
+        pointer-events: none;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100vw;
+        height: 100vh;
+
+        .upper-nav,
+        .lower-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 1.25rem;
+        }
+
+        button {
+            opacity: 0;
+            min-width: 2rem;
+            min-height: 2rem;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .upper-nav button {
+            &:first-of-type:hover {
+                transform: translateY(2px) rotate(6deg);
+            }
+
+            &:last-of-type:hover {
+                transform: translateY(2px) rotate(-6deg);
+            }
+        }
+
+        .lower-nav button {
+            &:first-of-type:hover {
+                transform: translateY(-2px) rotate(-6deg);
+            }
+
+            &:last-of-type:hover {
+                transform: translateY(-2px) rotate(6deg);
+            }
+        }
+    }
+</style>
+
+<script>
+    document.querySelector("[about-btn]")?.addEventListener("click", () => {
+        const aboutArticle = document.getElementById("about-article");
+        if (aboutArticle) aboutArticle.style.opacity = "1";
+    });
+</script>

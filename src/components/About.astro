@@ -1,0 +1,88 @@
+---
+
+---
+
+<article id="about-article">
+    <h1>Welcome to my dream journal.</h1>
+    <p>
+        This is a section about my relationship with dreams and how this website
+        represents the fleeting aspects of them.
+    </p>
+    <p>Here's a section about me if I have enough to say.</p>
+    <p>Thank you for visiting.</p>
+
+    <button close-btn>x</button>
+</article>
+
+<style>
+    article {
+        pointer-events: none;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        margin: auto;
+        opacity: 0;
+        transition: opacity 500ms ease;
+
+        h1,
+        p {
+            margin: 0 auto;
+            max-width: clamp(8rem, 10vw, 12rem);
+            margin-bottom: 2.5rem;
+        }
+
+        p {
+            margin-bottom: 2rem;
+        }
+
+        button {
+            font-size: 1.75rem;
+            margin: 0 auto;
+            width: max-content;
+        }
+
+        button::before {
+            position: absolute;
+            content: "x";
+            font-family: var(--font-bold);
+            opacity: 0;
+            transition: opacity 500ms ease;
+        }
+
+        button:hover {
+            cursor: pointer;
+            &&::before {
+                opacity: 1;
+            }
+        }
+    }
+
+    h1::before {
+        position: absolute;
+        transform: translateX(-12px) translateY(1px);
+        content: "Welcome to my dream journal.";
+        max-width: clamp(8rem, 10vw, 12rem);
+        font-family: var(--font-bold);
+        opacity: 0;
+        animation: fadeOut 3s ease;
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+</style>
+
+<script>
+    document.querySelector("[close-btn]")?.addEventListener("click", () => {
+        const aboutArticle = document.getElementById("about-article");
+        if (aboutArticle) aboutArticle.style.opacity = "0";
+    });
+</script>
