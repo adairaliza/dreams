@@ -75,15 +75,18 @@
     const root = document.documentElement;
     button?.addEventListener("click", () => {
         const isDarkMode = button?.getAttribute("dark-mode") === "true";
+        console.log(button);
         if (isDarkMode) {
             // set to light mode
             root.style.setProperty("--color-bg", "var(--color-light)");
             root.style.setProperty("--color-font", "var(--color-dark)");
+            button.textContent = "☀";
             button.setAttribute("dark-mode", "false");
         } else {
             // set to dark mode
             root.style.setProperty("--color-bg", "var(--color-dark)");
             root.style.setProperty("--color-font", "var(--color-light)");
+            button.textContent = "⏾";
             button.setAttribute("dark-mode", "true");
         }
     });
