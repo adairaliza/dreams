@@ -4,7 +4,7 @@
 
 <nav>
     <section class="upper-nav">
-        <button light-mode-btn>☀</button>
+        <button id="color-mode" dark-mode={false}>☀</button>
         <button about-btn>about</button>
     </section>
     <section class="lower-nav">
@@ -69,5 +69,22 @@
     document.querySelector("[about-btn]")?.addEventListener("click", () => {
         const aboutArticle = document.getElementById("about-article");
         if (aboutArticle) aboutArticle.style.opacity = "1";
+    });
+
+    const button = document.getElementById("color-mode");
+    const root = document.documentElement;
+    button?.addEventListener("click", () => {
+        const isDarkMode = button?.getAttribute("dark-mode") === "true";
+        if (isDarkMode) {
+            // set to light mode
+            root.style.setProperty("--color-bg", "var(--color-light)");
+            root.style.setProperty("--color-font", "var(--color-dark)");
+            button.setAttribute("dark-mode", "false");
+        } else {
+            // set to dark mode
+            root.style.setProperty("--color-bg", "var(--color-dark)");
+            root.style.setProperty("--color-font", "var(--color-light)");
+            button.setAttribute("dark-mode", "true");
+        }
     });
 </script>
