@@ -6,6 +6,7 @@
 
 <style>
     article {
+        pointer-events: none;
         position: absolute;
         height: 100%;
         width: 100%;
@@ -13,12 +14,12 @@
         overflow: hidden;
 
         div {
+            pointer-events: auto;
             position: absolute;
             max-width: 20%;
             max-height: 30%;
             overflow-y: scroll;
             top: 0%;
-            /* transform: translateY(115vh); */
             animation: fallingStar 25s linear forwards;
         }
 
@@ -27,6 +28,7 @@
         }
 
         h2 {
+            pointer-events: auto;
             position: relative;
         }
 
@@ -65,19 +67,14 @@
 
 <script>
     let foundDreams: any[] = [];
-    async function getDream() {
-        console.log("GET DREAMS CALLED");
-        try {
-            const collectionCall = await fetch("/api/dreamsSize");
-            if (!collectionCall.ok)
-                throw new Error("Failed to fetch collection");
 
-            const collectionSize = await collectionCall.json();
-            console.log(collectionSize.count);
-            if (foundDreams.length === collectionSize) {
-                console.log("clearing foundDreams array");
-                foundDreams = [];
-            }
+    const collectionCall = await fetch("/api/dreamsSize");
+    if (!collectionCall.ok) throw new Error("Failed to fetch collection");
+    const collectionSize = await collectionCall.json();
+
+    async function getDream() {
+        try {
+            if (foundDreams.length === collectionSize.count) foundDreams = [];
 
             let dream;
             let dreamCheck = false;
@@ -97,6 +94,7 @@
             }
 
             const dreamDiv = document.createElement("div");
+            dreamDiv.style.left = `${Math.floor(Math.random() * 90 + 5)}vh`;
 
             const description = document.createElement("h2");
             description.style.setProperty(
@@ -116,6 +114,7 @@
         }
     }
 
+    getDream();
+
     setInterval(getDream, 5000);
-    // setTimeout(getDream, 500);
 </script>
