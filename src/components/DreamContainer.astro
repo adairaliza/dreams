@@ -1,0 +1,121 @@
+---
+
+---
+
+<article id="dream-container"></article>
+
+<style>
+    article {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        overflow: hidden;
+
+        div {
+            position: absolute;
+            max-width: 20%;
+            max-height: 30%;
+            overflow-y: scroll;
+            top: 0%;
+            /* transform: translateY(115vh); */
+            animation: fallingStar 25s linear forwards;
+        }
+
+        div:hover {
+            animation-play-state: paused;
+        }
+
+        h2 {
+            position: relative;
+        }
+
+        h2::before {
+            content: "☆";
+            display: flex;
+        }
+
+        h2::after {
+            content: var(--dream-description, "");
+            display: none;
+        }
+
+        h2:hover::before {
+            display: none;
+        }
+
+        h2:hover::after {
+            display: block;
+        }
+
+        p {
+            text-align: right;
+        }
+    }
+
+    @keyframes fallingStar {
+        0% {
+            transform: translateY(-5vh);
+        }
+        100% {
+            transform: translateY(115vh);
+        }
+    }
+</style>
+
+<script>
+    let foundDreams: any[] = [];
+    async function getDream() {
+        console.log("GET DREAMS CALLED");
+        try {
+            const collectionCall = await fetch("/api/dreamsSize");
+            if (!collectionCall.ok)
+                throw new Error("Failed to fetch collection");
+
+            const collectionSize = await collectionCall.json();
+            console.log(collectionSize.count);
+            if (foundDreams.length === collectionSize) {
+                console.log("clearing foundDreams array");
+                foundDreams = [];
+            }
+
+            let dream;
+            let dreamCheck = false;
+
+            while (!dreamCheck) {
+                const response = await fetch("/api/dreams");
+                if (!response.ok) throw new Error("Failed to fetch dream");
+
+                dream = await response.json();
+
+                if (!dream) return;
+
+                if (!foundDreams.includes(dream._id)) {
+                    foundDreams.push(dream._id);
+                    dreamCheck = true;
+                }
+            }
+
+            const dreamDiv = document.createElement("div");
+
+            const description = document.createElement("h2");
+            description.style.setProperty(
+                "--dream-description",
+                `"${dream?.description}"`,
+            );
+
+            const date = document.createElement("p");
+            date.textContent = new Date(dream?.date).toDateString();
+
+            dreamDiv.append(description, date);
+
+            document.getElementById("dream-container")?.appendChild(dreamDiv);
+        } catch (error) {
+            console.log("~~ERROR IN DREAM CONTAINER SCRIPT~~");
+            console.error(error);
+        }
+    }
+
+    setInterval(getDream, 5000);
+    // setTimeout(getDream, 500);
+</script>
